@@ -25,8 +25,8 @@ const oauthStrategyOptions = {
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL:
-    // "https://g24-cvmaker-preview.herokuapp.com/api/login/auth/google/callback",
-  "/api/login/auth/google/callback",
+    "https://resumemaker-spm.herokuapp.com/api/login/auth/google/callback",
+  // "/api/login/auth/google/callback",
 };
 
 function myLocalStrategy(username, password, done) {
