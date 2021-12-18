@@ -4,6 +4,7 @@
   "description": "CV maker SEN group-24 project",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
