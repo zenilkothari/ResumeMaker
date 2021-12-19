@@ -11,31 +11,46 @@
   </head>
   <body>
     <header>
-      <a href="index.html" class="brand-name">CVMaker</a>
-      <nav>
-        <ul class="nav_links">
-          <li><a href="dashboard.html" class="">Dashboard</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li>
-            <div class="dropdown">
-              <a class="btn dropdown-toggle avatar-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="./Images/panda-head.png" alt="avatar" class="avatar-img">
-              </a>
+      <div class="fixed-position">
+        <a href="index.html" class="brand-name">ResumeMaker</a>
+        <nav>
+          <ul class="nav_links">
+            <li>
+              <a
+                href="adminDashboard.html"
+                class="active-page"
+                id="admin-dashboard"
+                style="display: none"
+                >Admin Dashboard</a
+              >
+            </li>
+            <li>
+              <div class="dropdown">
+                <a
+                  class="btn dropdown-toggle avatar-btn"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="./Images/panda-head.png"
+                    alt="avatar"
+                    class="avatar-img"
+                    id="user-image"
+                  />
+                </a>
 
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">Change Account</a>
-                <a class="dropdown-item" href="#">Change Password</a>
-                <a class="dropdown-item" href="#">Edit Profile</a>
-                <a class="dropdown-item" href="#" id = "logout-button">Logout</a>
-                
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="profile.html">Edit Profile</a>
+                  <a class="dropdown-item" href="#" id="logout-button"
+                    >Logout</a
+                  >
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-        
-      </nav>
-      
+            </li>
+          </ul>
+        </nav>
+      </div>
     </header>
     
 </ Main Section ---->

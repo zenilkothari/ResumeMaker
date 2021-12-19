@@ -6,15 +6,19 @@ const Schema = mongoose.Schema;
 const resumeObj = {
   fullName: {
     type: String,
-    default: "",
+    default: "Name",
   },
   institute: {
     type: String,
-    default: "",
+    default: "Institute Name",
+  },
+  profile: {
+    type: String,
+    default: "Your Information",
   },
   email: {
     type: String,
-    default: "",
+    default: "youremail@example.xyz",
   },
   DOB: {
     type: Date,
@@ -22,14 +26,15 @@ const resumeObj = {
   },
   address: {
     type: String,
-    default: "",
+    default: "Address",
   },
   education: { type: Array, default: [] },
-  expertiseArea: { type: String, default: "" },
-  programmingLanguage: { type: String, default: "" },
-  toolsAndTechnology: { type: String, default: "" },
-  technicalElective: { type: String, default: "" },
-  interships: { type: Array, default: [] },
+  // expertiseArea: { type: String, default: "" },
+  // programmingLanguage: { type: String, default: "" },
+  // toolsAndTechnology: { type: String, default: "" },
+  // technicalElective: { type: String, default: "" },
+  skills: { type: Array, default: [] },
+  internships: { type: Array, default: [] },
   projects: { type: Array, default: [] },
   positionOfResponiblity: { type: Array, default: [] },
   intrestAndHobbies: { type: Array, default: [] },

@@ -3,7 +3,7 @@ const submitBtn = document.getElementById("save-cv");
 
 function printResume() {
   //document represent respective resume template
-  console.log("print");
+  //("print");
   var printdocument = document.getElementById("resume").innerHTML;
   var originalDocument = document.body.innerHTML;
 
@@ -144,26 +144,26 @@ function addEducation() {
   /*cell = newrow.insertCell(-1);
     cell.innerHTML = removeButtonHTML('education-table');*/
   // -1 is for appending at last
-  //console.log('added education');
+  ////('added education');
 }
 
-function addSkills() {
-  var skilltable = document.getElementById("skills-table").tBodies[0];
-  var lastrowindex = skilltable.rows.length;
-  var newrow = skilltable.insertRow(lastrowindex);
-  var cell = newrow.insertCell(0);
-  cell.innerHTML = "<b>Technical Electives</b>";
+// function addSkills() {
+//   var skilltable = document.getElementById("skills-table").tBodies[0];
+//   var lastrowindex = skilltable.rows.length;
+//   var newrow = skilltable.insertRow(lastrowindex);
+//   var cell = newrow.insertCell(0);
+//   cell.innerHTML = "<b>Technical Electives</b>";
 
-  cell = newrow.insertCell(-1);
-  cell.setAttribute("contenteditable", "true");
-  cell.setAttribute("spellcheck", "true");
-  cell.setAttribute("onclick", "selectAll()");
-  cell.innerHTML = newCellPlaceholder;
-  console.log("added Skill");
+//   cell = newrow.insertCell(-1);
+//   cell.setAttribute("contenteditable", "true");
+//   cell.setAttribute("spellcheck", "true");
+//   cell.setAttribute("onclick", "selectAll()");
+//   cell.innerHTML = newCellPlaceholder;
+//   //("added Skill");
 
-  document.getElementById("add-skill").classList.add("invisible");
-  document.getElementById("remove-skill").classList.remove("invisible");
-}
+//   document.getElementById("add-skill").classList.add("invisible");
+//   document.getElementById("remove-skill").classList.remove("invisible");
+// }
 
 function addInternships() {
   var internshipstable = document.getElementById("internships-table")
@@ -185,12 +185,7 @@ function addInternships() {
   cell.innerHTML =
     '<div><p contenteditable="true" spellcheck="true" class="input-field" onclick="selectAll()">' +
     newCellPlaceholder +
-    "</p></div><div><p><i>" +
-    "Guide: " +
-    '<span contenteditable="true" spellcheck="true" class="input-field head-field" onclick="selectAll()">' +
-    newCellPlaceholder +
-    "</span>" +
-    "</i></p></div>";
+    "</p></div>";
 
   cell = newrow.insertCell(-1);
   cell.setAttribute("valign", "top");
@@ -198,9 +193,7 @@ function addInternships() {
   cell.innerHTML =
     '<div><p contenteditable="true" spellcheck="true" class="input-field" onclick="selectAll()">' +
     newCellPlaceholder +
-    '</p></div><div><p contenteditable="true" spellcheck="true" class="input-field" onclick="selectAll()">' +
-    newCellPlaceholder +
-    "</p><div>";
+    "</p></div>";
 }
 
 function addProjects() {
@@ -251,6 +244,7 @@ function addtoList(list_id) {
   var list = document.getElementById(list_id);
   var cell = document.createElement("li");
   cell.setAttribute("contenteditable", "true");
+  cell.setAttribute("style", "font-family: Georgia");
   cell.setAttribute("spellcheck", "true");
   cell.setAttribute("class", "input-field");
   cell.setAttribute("onclick", "selectAll()");
@@ -276,8 +270,10 @@ function removeRow(tableid, element = null) {
   var lastrowindex;
 
   if (tableid == "skills-table") {
-    document.getElementById("remove-skill").classList.add("invisible");
-    document.getElementById("add-skill").classList.remove("invisible");
+    // document.getElementById("remove-skill").classList.add("invisible");
+    // document.getElementById("add-skill").classList.remove("invisible");
+    lastrowindex = document.getElementById(tableid).rows.length - 1;
+    document.getElementById(tableid).deleteRow(lastrowindex - 1);
     lastrowindex = document.getElementById(tableid).rows.length - 1;
     document.getElementById(tableid).deleteRow(lastrowindex - 1);
     return;
@@ -296,11 +292,13 @@ function removeRow(tableid, element = null) {
     document.getElementById(tableid).deleteRow(rowindex);
     */
   lastrowindex = document.getElementById(tableid).rows.length - 1;
-  if (
-    (tableid != "education-table" && lastrowindex > 1) ||
-    (tableid == "education-table" && lastrowindex > 2)
-  )
+  if (tableid != "education-table" && lastrowindex > 1)
     document.getElementById(tableid).deleteRow(lastrowindex - 1);
+
+  if (tableid == "education-table" && lastrowindex > 2) {
+    document.getElementById(tableid).deleteRow(lastrowindex - 1);
+    // document.getElementById(tableid).deleteRow(lastrowindex - 2);
+  }
 }
 
 function removeAchievements() {
@@ -316,34 +314,36 @@ function removeAchievements() {
   }, 400);
 }
 
-
 function saveResume() {
   //Heading
   // var template = document.getElementById("template-name").innerHTML;
   var studentname = document.getElementById("stud-name").innerHTML;
   var emailaddr = document.getElementById("e-mail").innerHTML;
-  var dob = new Date(document.getElementById("dob").innerText);
+  // var dob = new Date(document.getElementById("dob").innerText);
   var address = document.getElementById("address").innerHTML;
+  var profile = document.getElementById("profile").innerHTML;
   var tablerows;
   var i, j;
   //Education
   tablerows = document.getElementById("education-table").tBodies[0].rows;
-  //console.log(tablerows.length);
+  ////(tablerows.length);
   var edu_tabledata = [];
   for (i = 0; i < tablerows.length; i++) {
     edu_tabledata[i] = [];
     var rowcells = tablerows[i].cells;
-    for (j = 0; j < 4; j++) edu_tabledata[i][j] = rowcells[j].innerHTML;
-    //console.log(i);
+    //(rowcells, rowcells.length);
+    for (j = 0; j < Math.min(4, rowcells.length); j++)
+      edu_tabledata[i][j] = rowcells[j].innerHTML;
+    ////(i);
   }
-  // console.log(edu_tabledata);
+  // //(edu_tabledata);
   //Skills
-  tablerows = document.getElementById("skills-table").tBodies[0].rows;
-  var skills_tabledata = [];
-  for (i = 0; i < tablerows.length; i++) {
-    skills_tabledata.push(tablerows[i].cells[1].innerHTML);
-  }
-  //console.log(skills_tabledata);
+  // tablerows = document.getElementById("skills-table").tBodies[0].rows;
+  // var skills_tabledata = [];
+  // for (i = 0; i < tablerows.length; i++) {
+  //   skills_tabledata.push(tablerows[i].cells[0].innerHTML);
+  // }
+  // //(skills_tabledata);
   //Internships
   tablerows = document.getElementById("internships-table").tBodies[0].rows;
   var internships_tabledata = [];
@@ -352,17 +352,9 @@ function saveResume() {
     for (j = 0; j < 3; j++) {
       internships_tabledata[i][j] = tablerows[i].cells[j].innerHTML;
     }
-    //console.log(i);
+    ////(i);
   }
-  //Projects
-  tablerows = document.getElementById("projects-table").tBodies[0].rows;
-  var projects_tabledata = [];
-  for (i = 0; i < tablerows.length; i++) {
-    projects_tabledata[i] = [];
-    for (j = 0; j < 3; j++) {
-      projects_tabledata[i][j] = tablerows[i].cells[j].innerHTML;
-    }
-  }
+
   //positions
   var ul = document.getElementById("positions-list");
   var positions_list = ul.innerHTML;
@@ -378,18 +370,18 @@ function saveResume() {
     institute:
       "Dhirubhai Ambani Institute of Information and Communication Technology",
     email: emailaddr,
-    DOB: dob,
+    profile: profile,
+    // DOB: dob,
     address: address,
     education: edu_tabledata,
-    skills: skills_tabledata,
+    // skills: skills_tabledata,
     internships: internships_tabledata,
-    projects: projects_tabledata,
     positionOfResponiblity: positions_list,
     intrestAndHobbies: hobbies_list,
     achievements: awards_list,
   };
 
-  console.log(resumeDetails);
+  //(resumeDetails);
   return resumeDetails;
 }
 
@@ -402,7 +394,7 @@ const loadResume = async function () {
   let isUserLoggedIn = false;
   let isFromGoogle = false;
   if (token) isUserLoggedIn = true;
-  // console.log(document.cookie);
+  // //(document.cookie);
   const myInit = {
     method: "GET",
     withCredentials: true,
@@ -418,41 +410,28 @@ const loadResume = async function () {
 
   let resumesObj;
   const res = await fetch("/api/profile", myInit);
-  try {
-    if (!res.ok) {
-      throw Error("Could not fetch data for that resource");
-    } else {
+  if (!res.ok) {
+    throw Error("Could not fetch data for that resource");
+  } else {
+    const jsonRes = await res.json();
+    
+    resumesObj = jsonRes.data.user?.resumes;
+    
+    // console.log(resumesObj)
+    // return;
+    let flag = true;
+    if (resumesObj)
+      flag = false;
+    
+    if (flag) {
+      myInit.method = "POST";
+
+      const res = await fetch("/api/resumeData", myInit);
+      
       const jsonRes = await res.json();
-      console.log({ jsonRes });
-      resumesObj = jsonRes.data.user?.resumes;
-      try {
-        let flag = true;
-        for (let x of resumesObj) {
-          if (x.index === 1) {
-            flag = false;
-            break;
-          }
-        }
-        if (flag) {
-          myInit.method = "POST";
-          myInit.body = JSON.stringify({ index: 1 });
-          console.log("here0");
-
-          const res = await fetch("/api/resumeData", myInit);
-          console.log("here1");
-
-          const jsonRes = await res.json();
-          console.log("here2");
-          if (!jsonRes.success) throw Error("error");
-          console.log(jsonRes);
-          resumesObj.push({ index: 1, id: jsonRes.data.resumeId });
-          console.log(resumesObj);
-        }
-        console.log(jsonRes);
-      } catch (err) {
-        console.log(err);
-      }
-
+      // if (!jsonRes.success) throw Error("error");
+      resumesObj = jsonRes.data.resumeId;
+  
       if (!jsonRes.data.user.username) {
         window.location.href = "login.html";
       } else {
@@ -465,32 +444,28 @@ const loadResume = async function () {
         document.getElementById("user-image").src = jsonRes.data.user.photoURL;
       }
     }
-  } catch (err) {
-    console.log(err);
   }
-  // console.log(document.cookie);
+  
+  // //(document.cookie);
   //   if (!resumesObj) return;
-  let resumeId;
-  for (let i = 0; i < resumesObj.length; i++) {
-    if (resumesObj[i].index == 1) {
-      resumeId = resumesObj[i].id;
-      break;
-    }
-  }
+  let resumeId=resumesObj;
+  
   myInit.method = "GET";
   delete myInit.body;
   fetch(`/api/resumeData/${resumeId}`, myInit)
     .then((res) => res.json())
     .then((jsonRes) => {
-      console.log(jsonRes);
+      //(jsonRes);
       const resumeData = jsonRes.data.resumeData;
 
       let tablerows, i, j;
       // personal info
       document.getElementById("stud-name").innerHTML = "" + resumeData.fullName;
       document.getElementById("e-mail").innerHTML = "" + resumeData.email;
-      document.getElementById("dob").innerHTML =
-        "" + resumeData.DOB?.slice(0, 10);
+      document.getElementById("profile").innerHTML = "" + resumeData.profile;
+
+      // document.getElementById("dob").innerHTML =
+      //   "" + resumeData.DOB?.slice(0, 10);
       document.getElementById("address").innerHTML = "" + resumeData.address;
 
       // education
@@ -506,33 +481,32 @@ const loadResume = async function () {
           removeRow("education-table");
           tablerows = document.getElementById("education-table").tBodies[0].rows;
         } //remove rows bcoz default html has more rows then database
+  
+        //(tablerows);
+        //(edu_tabledata);
         for (i = 0; i < rowstobeupdated; i++) {
           //update rows
           for (j = 0; j < 4; j++)
             tablerows[i].cells[j].innerHTML = edu_tabledata[i][j];
-          //console.log(i);
+          ////(i);
         }
 
       }
 
-      //skills
-      if(resumeData?.skills && resumeData?.skills.length>0) {
-        tablerows = document.getElementById("skills-table").tBodies[0].rows;
-        let skills_tabledata = resumeData?.skills || [];
-        rowstobeupdated = skills_tabledata.length;
-        while (rowstobeupdated - tablerows.length > 0) {
-          addSkills();
-          tablerows = document.getElementById("skills-table").tBodies[0].rows;
-        } //when database has more rows
-        while (tablerows.length - rowstobeupdated > 0) {
-          removeRow("skills-table");
-          tablerows = document.getElementById("skills-table").tBodies[0].rows;
-        } //when defalt html page got more rows
-        for (i = 0; i < rowstobeupdated; i++) {
-          tablerows[i].cells[1].innerHTML = skills_tabledata[i];
-        }
-
-      }
+      // tablerows = document.getElementById("skills-table").tBodies[0].rows;
+      // let skills_tabledata = resumeData?.skills || [];
+      // rowstobeupdated = skills_tabledata.length;
+      // while (rowstobeupdated - tablerows.length > 0) {
+      //   addSkills();
+      //   tablerows = document.getElementById("skills-table").tBodies[0].rows;
+      // } //when database has more rows
+      // while (tablerows.length - rowstobeupdated > 0) {
+      //   removeRow("skills-table");
+      //   tablerows = document.getElementById("skills-table").tBodies[0].rows;
+      // } //when defalt html page got more rows
+      // for (i = 0; i < rowstobeupdated; i++) {
+      //   tablerows[i].cells[1].innerHTML = skills_tabledata[i];
+      // }
 
       //Internships
       if(resumeData?.internships && resumeData?.internships.length>0){
@@ -558,26 +532,6 @@ const loadResume = async function () {
       }
 
       //Projects
-      if(resumeData?.projects && resumeData?.projects.length>0){
-        tablerows = document.getElementById("projects-table").tBodies[0].rows;
-        let projects_tabledata = resumeData?.projects || [];
-        rowstobeupdated = projects_tabledata.length;
-        while (rowstobeupdated - tablerows.length > 0) {
-          addProjects();
-          tablerows = document.getElementById("projects-table").tBodies[0].rows;
-        }
-        while (tablerows.length - rowstobeupdated > 0) {
-          removeRow("projects-table");
-          tablerows = document.getElementById("internships-table").tBodies[0]
-            .rows;
-        }
-        for (i = 0; i < rowstobeupdated; i++) {
-          for (j = 0; j < 3; j++) {
-            tablerows[i].cells[j].innerHTML = projects_tabledata[i][j];
-          }
-        }
-
-      }
 
       //positions
       if (resumeData["positionOfResponiblity"] != null) {
@@ -595,6 +549,7 @@ const loadResume = async function () {
         document.getElementById("awards-list").innerHTML =
           resumeData["achievements"];
       }
+      console.log(resumeData)
     })
     .catch((err) => console.log(err));
 };
@@ -608,7 +563,7 @@ submitBtn.addEventListener("click", async (e) => {
   let isUserLoggedIn = false;
   let isFromGoogle = false;
   if (token) isUserLoggedIn = true;
-  // console.log(document.cookie);
+  // //(document.cookie);
   const myInit = {
     method: "GET",
     withCredentials: true,
@@ -629,7 +584,7 @@ submitBtn.addEventListener("click", async (e) => {
       throw Error("Could not fetch data for that resource");
     } else {
       const jsonRes = await res.json();
-      console.log({ jsonRes });
+      //({ jsonRes });
       resumesObj = jsonRes.data.user.resumes;
       if (!jsonRes.data.user.username) {
         window.location.href = "login.html";
@@ -644,19 +599,14 @@ submitBtn.addEventListener("click", async (e) => {
       }
     }
   } catch (err) {
-    console.log(err);
+    //(err);
   }
 
   e.preventDefault();
   const resumeBody = saveResume();
-  console.log(resumesObj);
-  let resumeId;
-  for (let i = 0; i < resumesObj.length; i++) {
-    if (resumesObj[i].index == 1) {
-      resumeId = resumesObj[i].id;
-      break;
-    }
-  }
+  //(resumesObj);
+  let resumeId=resumesObj;
+  
   if (!resumeId) {
     console.error("resume id not found, can't proceed");
   } else {
@@ -665,7 +615,7 @@ submitBtn.addEventListener("click", async (e) => {
     fetch(`/api/resumeData/${resumeId}`, myInit)
       .then((res) => res.json())
       .then((jsonRes) => {
-        console.log(jsonRes);
+        //(jsonRes);
         const alertDiv = document.getElementById("alert-message");
           alertDiv.innerHTML = "";
           alertDiv.style.display = "flex";
@@ -688,7 +638,7 @@ submitBtn.addEventListener("click", async (e) => {
           alertDiv.append(newDiv);
       })
       .catch((err) => {
-        console.log(err);
+        //(err);
         const alertDiv1 = document.getElementById("alert-message-warn");
         alertDiv1.innerHTML = "";
         alertDiv1.style.display = "flex";

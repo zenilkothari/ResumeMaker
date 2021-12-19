@@ -32,11 +32,10 @@
 
   <body>
     <header>
-      <a href="index.html" class="brand-name">CVMaker</a>
+      <a href="index.html" class="brand-name">ResumeMaker</a>
       <nav>
         <ul class="nav_links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
+
           <li>
             <a href="login.html" class="btn-login">Login </a>
           </li>
@@ -44,7 +43,7 @@
       </nav>
     </header>
 
-    <div class="bodyy">
+    <div class="body">
       <div class="container">
         <div class="title">Registration</div>
         <div class="content">
@@ -73,6 +72,28 @@
                 />
               </div>
 
+              <div class="gender-details">
+              <input type="radio" name="gender" id="male" value="male" />
+              <input type="radio" name="gender" id="female" value="female" />
+              <input type="radio" name="gender" id="other" value="other" />
+
+              <span class="gender-title">Gender</span>
+              <div class="choice">
+                <label for="male">
+                  <span class="dot one"></span>
+                  <span class="gender">Male</span>
+                </label>
+                <label for="female">
+                  <span class="dot two"></span>
+                  <span class="gender">Female</span>
+                </label>
+                <label for="other">
+                  <span class="dot three"></span>
+                  <span class="gender">Other</span>
+                </label>
+              </div>
+            </div>
+
               <div class="input1">
                 <span class="details">Password</span>
                 <input
@@ -93,67 +114,6 @@
                   placeholder="Confirm your password"
                   required
                 />
-              </div>
-
-              <div class="new">
-                <select id="securityQ" name="securityQ">
-                  <option>Select a security question</option>
-                  <option>What was your childhood nickname?</option>
-                  <option>
-                    What is the name of your favorite childhood friend?
-                  </option>
-                  <option>What street did you live on in third grade?</option>
-                  <option>
-                    What is the middle name of your youngest child?
-                  </option>
-                  <option>
-                    In what city or town did your mother and father meet?
-                  </option>
-                  <option>In what city or town was your first job?</option>
-                  <option>
-                    What was the name of your elementary / primary school?
-                  </option>
-                  <option>
-                    What is the name of the company of your first job?
-                  </option>
-                  <option>
-                    What are the last 5 digits of your credit card?
-                  </option>
-                  <option>
-                    What are the last 5 of your Social Security number?
-                  </option>
-                  <option>What is your grandmother's first name?</option>
-                  <option>Who was your childhood hero?</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="answer"
-                  name="securityAns"
-                  id="securityAns"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="gender-details">
-              <input type="radio" name="gender" id="male" value="male" />
-              <input type="radio" name="gender" id="female" value="female" />
-              <input type="radio" name="gender" id="other" value="other" />
-
-              <span class="gender-title">Gender</span>
-              <div class="choice">
-                <label for="male">
-                  <span class="dot one"></span>
-                  <span class="gender">Male</span>
-                </label>
-                <label for="female">
-                  <span class="dot two"></span>
-                  <span class="gender">Female</span>
-                </label>
-                <label for="other">
-                  <span class="dot three"></span>
-                  <span class="gender">Other</span>
-                </label>
               </div>
             </div>
 
@@ -186,8 +146,6 @@
         username: e.target.elements["username"].value,
         password: e.target.elements["password"].value,
         password2: e.target.elements["password2"].value,
-        securityQ: e.target.elements["securityQ"].value,
-        securityAns: e.target.elements["securityAns"].value,
         gender: e.target.elements["gender"].value,
       };
       console.log(formData);

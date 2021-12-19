@@ -5,6 +5,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/User.js");
 const Resume = require("../models/Resume.js");
+ObjectId = require('mongodb').ObjectID;
+
 // bcrypt related
 const bcryptjs = require("bcryptjs");
 
@@ -25,11 +27,13 @@ const giveCurrentDate = () => {
 
 const get_resume = (req, res, next) => {
   const { resumeID } = req.params;
-  Resume.findById(resumeID)
+  if (!resumeID) res.sendStatus(500).json();
+  Resume.findOne({ _id: resumeID })
     .then((resumeData) => {
       User.findById(resumeData["user"])
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
+
       res.json({
         success: true,
         data: {
@@ -42,58 +46,63 @@ const get_resume = (req, res, next) => {
 };
 
 const new_resume = async (req, res, next) => {
-  const resumeData = { ...req.body };
-  const resumeDataKeys = Object.keys(resumeData);
-  const attributes = Object.keys(Resume.schema.paths);
-  let obj1 = {};
-  let otherObj = {};
-
-  resumeDataKeys.forEach((key) => {
-    if (attributes.indexOf(key) != -1) {
-      Object.defineProperty(obj1, key, { value: resumeData[key] });
-    } else {
-      Object.defineProperty(otherObj, key, { value: resumeData[key] });
-    }
-  });
-
+  // const resumeData = { ...req.body };
+  // const resumeDataKeys = Object.keys(resumeData);
+  // const attributes = Object.keys(Resume.schema.paths);
+  
+  
   const newResumeInstance = new Resume({
-    fullName: obj1?.fullName || "",
-    institute: obj1?.institute || "",
-    email: obj1?.email || "",
-    DOB: obj1?.DOB || Date.now(),
-    address: obj1?.address || "",
-    education: obj1?.education || [],
-    expertiseArea: obj1?.expertiseArea || "",
-    programmingLanguage: obj1?.programmingLanguage || "",
-    toolsAndTechnology: obj1?.toolsAndTechnology || "",
-    technicalElective: obj1?.technicalElective || "",
-    interships: obj1?.interships || [],
-    projects: obj1?.projects || [],
-    positionOfResponiblity: obj1?.positionOfResponiblity || [],
-    intrestAndHobbies: obj1?.intrestAndHobbies || [],
-    achievements: obj1?.achievements || [],
-    templateType: obj1?.templateType || 0,
-    others: otherObj,
+    fullName: "Enter Your Name",
+    institute: "DA-IICT",
+    email: "user@emample.xyz",
+    profile: "Enter your profile Information",
+    DOB: Date.now(),
+    address: "Enter Your Address",
+    education:  [],
+    skills: "",
+    internships:  [],
+    projects: [],
+    positionOfResponiblity: [],
+    intrestAndHobbies: [],
+    achievements: [],
+    templateType: req.body.index,
+    others: {},
     created: giveCurrentDate(),
     updated: giveCurrentDate(),
   });
-  newResumeInstance.user = mongoose.Types.ObjectId(req.user.id);
-  const currUser = await User.findById(req.user.id);
-  currUser.resumes.push(newResumeInstance);
-  await currUser.save();
-  console.log(req.user);
+
+   let userId = req.user.id;
+  if(req.user?.provider) {
+    const user = await User.findOne({username: req.user?.emails[0].value.slice(0, -10)});
+    // //("hehehheheehhe--------------------",user);
+    userId = user._id;
+  }
+  
+  newResumeInstance.user = userId;
+  console.log(newResumeInstance);
+
+
+  ("hereeeee---------------",req.user.id);
+
+  const newData = await User.findById(userId);
+  newData.resumes = newResumeInstance._id;
+  await newData.save();
+
+  // const currUser1 = await User.findById(userId);
+  // //({ currUser1 });
+
   try {
     const data = await newResumeInstance.save();
-    console.log(data);
+    //(data);
     res.json({
       success: true,
       data: {
-        msg: "Saved Succesfully",
+        resumeId: data._id,
       },
       error: null,
     });
   } catch (err) {
-    console.log(err);
+    // //(err);
     res.sendStatus(500).json();
   }
 };
@@ -105,7 +114,6 @@ const edit_resume = async (req, res, next) => {
   const attributes = Object.keys(Resume.schema.paths);
   let obj1 = {};
   let otherObj = {};
-
   resumeDataKeys.forEach((key) => {
     if (attributes.indexOf(key) != -1) {
       Object.defineProperty(obj1, key, { value: resumeData[key] });
@@ -115,20 +123,19 @@ const edit_resume = async (req, res, next) => {
   });
 
   try {
+    // //(obj1);
     const updatedResumeInstance = await Resume.findByIdAndUpdate(
       resumeID,
       {
         fullName: obj1?.fullName || "",
         institute: obj1?.institute || "",
         email: obj1?.email || "",
+        profile: obj1?.profile || "",
         DOB: obj1?.DOB || Date.now(),
         address: obj1?.address || "",
         education: obj1?.education || [],
-        expertiseArea: obj1?.expertiseArea || "",
-        programmingLanguage: obj1?.programmingLanguage || "",
-        toolsAndTechnology: obj1?.toolsAndTechnology || "",
-        technicalElective: obj1?.technicalElective || "",
-        interships: obj1?.interships || [],
+        skills: obj1?.skills || [],
+        internships: obj1?.internships || [],
         projects: obj1?.projects || [],
         positionOfResponiblity: obj1?.positionOfResponiblity || [],
         intrestAndHobbies: obj1?.intrestAndHobbies || [],
@@ -140,7 +147,7 @@ const edit_resume = async (req, res, next) => {
       { new: true }
     );
 
-    console.log(updatedResumeInstance);
+    // //(updatedResumeInstance);
     res.json({
       success: true,
       data: {
@@ -149,7 +156,7 @@ const edit_resume = async (req, res, next) => {
       error: null,
     });
   } catch (err) {
-    console.log(err);
+    // //(err);
     res.sendStatus(500).json();
   }
 };

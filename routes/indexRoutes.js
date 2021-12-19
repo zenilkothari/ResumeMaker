@@ -27,12 +27,6 @@ const {
   profile_delete,
 } = require("../controllers/indexControllers");
 
-const {
-  username_post,
-  securityCheck_post,
-  password_post,
-} = require("../controllers/passwordControllers.js");
-
 const User = require("../models/User.js");
 const { json } = require("express");
 
@@ -77,15 +71,5 @@ router.post("/profile", authenticate, checkUserLoggedIn, profile_post);
 
 router.delete("/profile", authenticate, checkUserLoggedIn, profile_delete);
 
-// security question routes
-
-// take username and give corrsponding security question from db
-router.post("/username", username_post);
-
-// take answer to the securty question and verify the answer and send appropriate response
-router.post("/securityCheck/:username", securityCheck_post);
-
-// update password after hashing
-router.post("/password/:username", password_post);
 
 module.exports = router;

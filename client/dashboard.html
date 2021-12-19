@@ -21,7 +21,7 @@
   <body>
     <header>
       <div class="fixed-position">
-        <a href="index.html" class="brand-name">CVMaker</a>
+        <a href="index.html" class="brand-name">ResumeMaker</a>
         <nav>
           <ul class="nav_links">
             <li>
@@ -33,8 +33,6 @@
                 >Admin Dashboard</a
               >
             </li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
             <li>
               <div class="dropdown">
                 <a
@@ -52,8 +50,6 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">Change Account</a>
-                  <a class="dropdown-item" href="#">Change Password</a>
                   <a class="dropdown-item" href="profile.html">Edit Profile</a>
                   <a class="dropdown-item" href="#" id="logout-button"
                     >Logout</a
@@ -75,73 +71,17 @@
 
         <!-------Cards------->
 
-        <div class="col-4 align-self-center">
-          <div class="card">
-            <div class="card-image-section">
-              <img
-                src="./Images/Classic.png"
-                alt="Classic template"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-text-info">
-              <h3>Classic Template</h3>
-            </div>
-            <div class="container">
-              <div class="row">
-                
-                <div class="col-12 card-action-buttons">
-                  <a
-                    class="btn btn-edit"
-                    data-index="0"
-                    href="./classic-template.html"
-                    >Edit</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4 align-self-center">
-          <div class="card">
-            <div class="card-image-section">
-              <img
-                src="./Images/modern-template.webp"
-                alt="Classic template"
-                class="img-fluid"
-              />
-            </div>
-            <div class="card-text-info">
-              <h3>Morden Template</h3>
-            </div>
-            <div class="container">
-              <div class="row">
-                
-                <div class="col-12 card-action-buttons">
-                  <a
-                    class="btn btn-edit"
-                    data-index="1"
-                    href="./modern-template.html"
-                    >Edit</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-4 align-self-center">
+        <div class="col-12 align-self-center">
           <div class="card">
             <div class="card-image-section">
               <img
                 src="./Images/minimalist-template.webp"
-                alt="Classic template"
+                alt="Template"
                 class="img-fluid"
               />
             </div>
             <div class="card-text-info">
-              <h3>Minimalist Template</h3>
+              <h3>Your Template</h3>
             </div>
             <div class="container">
               <div class="row">
@@ -150,7 +90,7 @@
                   <a
                     class="btn btn-edit"
                     data-index="2"
-                    href="./minimalist-template.html"
+                    href="./template.html"
                     >Edit</a
                   >
                 </div>
@@ -190,7 +130,7 @@
     let isUserLoggedIn = false;
     let isFromGoogle = false;
     if (token) isUserLoggedIn = true;
-    // console.log(document.cookie);
+    // //(document.cookie);
     const myInit = {
       method: "GET",
       withCredentials: true,
@@ -206,7 +146,7 @@
 
     fetch("/api/profile", myInit)
       .then((res) => {
-        console.log(res);
+        //(res);
         if (!res.ok) {
           throw Error("Could not fetch data for that resource");
         } else {
@@ -214,7 +154,7 @@
         }
       })
       .then((jsonRes) => {
-        console.log({ jsonRes });
+        //({ jsonRes });
         if (!jsonRes.success) {
           window.location.href = "login.html";
         } else {
@@ -229,7 +169,7 @@
         }
       })
       .catch((err) => {
-        console.log(err);
+        //(err);
         window.location.href = "/login.html";
       });
 
@@ -237,10 +177,10 @@
     logoutButton.addEventListener("click", (e) => {
       myInit.method = "GET";
       let url = "/api/" + (isFromGoogle ? "login/auth/google/" : "") + "logout";
-      console.log(url);
+      //(url);
       fetch(url, myInit)
         .then((res) => {
-          console.log(res.ok);
+          //(res.ok);
           if (!res.ok) {
             window.location.href = "index.html";
             // throw Error("Could not fetch data for that resource");
@@ -249,24 +189,24 @@
           }
         })
         .then((jsonRes) => {
-          console.log(jsonRes);
+          //(jsonRes);
           if (localStorage.getItem("token")) localStorage.removeItem("token");
           window.location.href = "index.html";
         })
         .catch((err) => {
-          console.log(err);
+          //(err);
           // window.location.href = "index.html";
         });
     });
 
     document.getElementById("select-button").addEventListener("click", (e) => {
-      console.log(e.target.dataset);
+      //(e.target.dataset);
       myInit.method = "POST";
       fetch("/api/resumeData", myInit)
         .then((res) => res.json())
         .then((jsonRes) => {
           if (!jsonRes.success) throw Error("error");
-          console.log(jsonRes);
+          //(jsonRes);
           localStorage.setItem("resumeId", jsonRes.data.resumeId);
           window.location.href = e.target.dataset.redirect;
         })

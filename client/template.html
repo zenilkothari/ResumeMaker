@@ -11,7 +11,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./css/minimalist-template.css" />
+    <link rel="stylesheet" href="./css/template.css" />
     <title>Modern Template - CVMaker</title>
   </head>
   <body>
@@ -20,7 +20,7 @@
     </div>
     <header>
       <div class="fixed-position">
-        <a href="index.html" class="brand-name">CVMaker</a>
+        <a href="index.html" class="brand-name">ResumeMaker</a>
         <nav>
           <ul class="nav_links">
             <li>
@@ -33,8 +33,7 @@
               >
             </li>
             <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
+           
             <li>
               <div class="dropdown">
                 <a
@@ -52,8 +51,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">Change Account</a>
-                  <a class="dropdown-item" href="#">Change Password</a>
+                
                   <a class="dropdown-item" href="profile.html">Edit Profile</a>
                   <a class="dropdown-item" id="logout-button"
                     >Logout</a
@@ -355,7 +353,7 @@
                     <thead>
                       <tr>
                         <td colspan="4" class="section-header">
-                          <h3>EDUCATION</h3>
+                          <h3 style="letter-spacing: 3px; font-style: italic" class="mb-4">Education</h3>
                         </td>
                       </tr>
 
@@ -654,7 +652,7 @@
       </div>
     </div>
 
-    <script defer src="./js/minimalist-template.js"></script>
+    <script defer src="./js/template.js"></script>
     <script
       defer
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -714,7 +712,7 @@
     let isUserLoggedIn = false;
     let isFromGoogle = false;
     if (token) isUserLoggedIn = true;
-    // console.log(document.cookie);
+    // //(document.cookie);
     const myInit = {
       method: "GET",
       withCredentials: true,
@@ -730,7 +728,7 @@
 
     fetch("/api/profile", myInit)
       .then((res) => {
-        // console.log(res);
+        // //(res);
         if (!res.ok) {
           throw Error("Could not fetch data for that resource");
         } else {
@@ -738,7 +736,7 @@
         }
       })
       .then((jsonRes) => {
-        console.log({ jsonRes });
+        //({ jsonRes });
         if (!jsonRes.data.user.username) {
           window.location.href = "login.html";
         } else {
@@ -753,8 +751,9 @@
         }
       })
       .catch((err) => {
-        console.log(err);
+        //(err);
         window.location.href = "login.html";
+        
       });
 
     // implementing logout API call
@@ -770,7 +769,7 @@
           }
         })
         .then((jsonRes) => {
-          console.log({ jsonRes });
+          //({ jsonRes });
           localStorage.removeItem("token");
           window.location.href = "index.html";
         })

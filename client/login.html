@@ -36,11 +36,9 @@
 
   <body>
     <header>
-      <a href="index.html" class="brand-name">CVMaker</a>
+      <a href="index.html" class="brand-name">ResumeMaker</a>
       <nav>
         <ul class="nav_links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
           <li>
             <a href="registration.html" class="btn-login"> Register</a>
           </li>
@@ -50,7 +48,21 @@
 
     <div class="right">
       <div class="content">
-        <div class="title">Welcome</div>
+
+        <div class="sign-up-google">
+          <button
+            onclick="location.href='/api/login/auth/google'"
+            class="btn btn-google"
+            type="submit"
+            value="submit"
+            id="google-button"
+          >
+            <span class="google-text">Sign in with </span>
+            <img src="Images/google-icon.svg" alt="" class="google-icon" />
+          </button>
+        </div>
+
+        <br><hr>
 
         <form method="POST" id="login-form">
           <div class="login">Login</div>
@@ -78,34 +90,15 @@
             <i class="far fa-eye-slash"></i>
           </div>
 
-          <div class="forget">
-            <a href="forgot-password.html">Forget Password?</a>
-          </div>
-
           <div class="input">
             <input type="submit" value="Sign In" name="submit" />
           </div>
-
+          <br>
           <div class="input2">
-            <p>Don't have an account?</p>
             <a href="registration.html">Sign Up</a>
           </div>
-
-          <hr />
         </form>
 
-        <div class="sign-up-google">
-          <button
-            onclick="location.href='/api/login/auth/google'"
-            class="btn btn-google"
-            type="submit"
-            value="submit"
-            id="google-button"
-          >
-            <span class="google-text">Sign in with </span>
-            <img src="Images/google-icon.svg" alt="" class="google-icon" />
-          </button>
-        </div>
       </div>
     </div>
   </body>
